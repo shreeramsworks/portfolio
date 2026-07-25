@@ -649,27 +649,28 @@
 
       <div class="projects-featured">
 
-        <!-- 1: WhatsApp AI Receptionist -->
+        <!-- 1: WhatsApp Followups & AI Suggestions -->
         <div class="project-featured reveal reveal-delay-1">
           <div>
             <div class="project-type">
-              Conversational AI
+              Sales Enablement
               <span class="demand-tag">🔥 HIGH DEMAND</span>
             </div>
-            <h3>WhatsApp AI Receptionist</h3>
-            <p>Full-featured WhatsApp AI agent for restaurants and service businesses. Handles menu walk-throughs, order taking, and customer conversations autonomously — with per-customer chat memory and promotion-aware pricing.</p>
+            <h3>WhatsApp Followups & AI Sales Suggestions</h3>
+            <p>Sales team enablement system for WhatsApp. Tracks every incoming message, maps to leads in Supabase, sends AI-powered reply suggestions to salespeople, and auto-reminds them when leads go unanswered (15-min) or need follow-up (24-hr). NVIDIA Gemma 3 generates context-aware reply drafts and lead summaries.</p>
             <ul class="highlights">
-              <li>GPT-4o-mini agent with real-time conversation flow</li>
-              <li>Custom WhatsApp bridge on VPS — bypasses Cloud API limits</li>
-              <li>Two-tab Google Sheet: conversation log + orders ledger</li>
-              <li>Sentinel-string order triggers with auto-pricing</li>
+              <li>Real-time webhook ingestion: filters groups, newsletters, logs every message with IST timestamps</li>
+              <li>Lead lifecycle: auto-creates leads with reference IDs, assigns salespersons, updates on every message</li>
+              <li>AI reply suggestions: salesperson sends chat context → LLM generates suggested reply with tone & confidence</li>
+              <li>15-min & 24-hr automated email reminders with LLM-generated lead summaries</li>
+              <li>NVIDIA Gemma 3 via API for all inference</li>
             </ul>
-            <div class="tech"><span>GPT-4o-mini</span><span>WhatsApp</span><span>Python</span><span>Google Sheets</span></div>
+            <div class="tech"><span>n8n</span><span>Supabase</span><span>NVIDIA Gemma 3</span><span>Gmail</span><span>WhatsApp</span></div>
           </div>
           <div class="project-featured-right">
             <div class="metric-grid">
-              <div class="metric"><div class="val">&lt;5s</div><div class="label">Response Time</div></div>
-              <div class="metric"><div class="val">24/7</div><div class="label">Availability</div></div>
+              <div class="metric"><div class="val">Real-time</div><div class="label">Lead Tracking</div></div>
+              <div class="metric"><div class="val">85+</div><div class="label">n8n Nodes</div></div>
             </div>
           </div>
         </div>

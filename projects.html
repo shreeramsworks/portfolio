@@ -324,25 +324,27 @@
       </div>
 
       <div class="project-card featured reveal reveal-delay-1">
-        <div class="project-type">Conversational AI <span class="demand-tag">🔥 HIGH DEMAND</span></div>
-        <h3>WhatsApp AI Receptionist (Restaurant Bot)</h3>
-        <div class="project-meta">Built: 2024 · Status: Production</div>
+        <div class="project-type">Sales Enablement <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>WhatsApp Followups & AI Sales Suggestions</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
         <p class="description">
-          Full-featured WhatsApp AI agent for restaurants and service businesses. Handles menu walk-throughs,
-          order taking, and customer conversations completely autonomously. GPT-4o-mini driven with per-customer
-          chat memory keyed by phone number. Custom Python ↔ WhatsApp bridge on VPS (bypasses Cloud API limitations).
-          Two-tab Google Sheet tracks conversation log + orders ledger. Promotion-aware pricing with sentinel-string
-          order triggers. Built for real-time restaurant operations.
+          Sales team enablement system for WhatsApp Webhook. Ingests every incoming message in real-time,
+          maps chats to leads in Supabase, auto-creates lead records with reference IDs, and assigns
+          salespersons based on message content. Provides an AI Sales Assistant webhook where salespeople
+          send chat context and get AI-generated reply suggestions, message explanations, or translations
+          powered by NVIDIA Gemma 3. Includes a cron-based reminder engine that emails salespeople when
+          a lead goes unanswered for 15 minutes, or when 24 hours pass since last outreach.
         </p>
         <ul class="highlights">
-          <li>GPT-4o-mini agent with real-time conversation flow and context switching</li>
-          <li>Custom WhatsApp bridge on VPS — bypasses expensive Cloud API rate limits</li>
-          <li>Two-tab Google Sheet: conversation log + orders ledger in sync</li>
-          <li>Promotion-aware dynamic pricing with sentinel-string triggers</li>
-          <li>Bilingual Hindi-English with context-aware language switching</li>
+          <li>Real-time webhook: filters group chats, newsletters, logs every message with IST timestamp</li>
+          <li>Lead lifecycle: auto-creates leads with sequential references (LEAD-XXXX), assigns salespersons</li>
+          <li>AI Sales Assistant: reply suggestions, intent analysis, translation — via NVIDIA Gemma 3</li>
+          <li>15-min response reminder: LLM generates context summary + client details, emails salesperson</li>
+          <li>24-hr follow-up reminder: LLM generates follow-up prompts with conversation summary</li>
+          <li>Every message stored in chat_history with sender/receiver tracking</li>
         </ul>
-        <div class="tech"><span>GPT-4o-mini</span><span>WhatsApp API</span><span>Python</span><span>Google Sheets</span><span>VPS</span></div>
-        <div class="card-footer">50+ nodes in n8n · <span>Production since 2025</span></div>
+        <div class="tech"><span>n8n</span><span>Supabase</span><span>NVIDIA Gemma 3</span><span>Gmail</span><span>WhatsApp Webhook</span></div>
+        <div class="card-footer">85+ n8n nodes · Production since 2025</div>
       </div>
 
       <div class="project-card featured reveal reveal-delay-2">
