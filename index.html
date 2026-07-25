@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shreeram Kulkarni | AI Automation Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --bg-surface: #121214;
+      --bg-card: #1a1a1e;
+      --bg-card-hover: #222228;
+      --border: #2a2a30;
+      --text-primary: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --text-muted: #6b6b7a;
+      --accent: #22d3ee;
+      --accent-dim: #0891b2;
+      --accent-glow: rgba(34, 211, 238, 0.15);
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-full: 9999px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text-primary); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #000 !important;
+      padding: 8px 20px;
+      border-radius: var(--radius-full);
+      font-weight: 600 !important;
+      font-size: 0.85rem !important;
+      transition: all 0.2s;
+    }
+
+    .nav-cta:hover {
+      box-shadow: 0 0 24px var(--accent-glow);
+      transform: scale(1.02);
+    }
+
+    /* Mobile nav toggle */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 6px 16px 6px 8px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .hero-tag .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 60%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 32px var(--accent-glow);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-muted);
+    }
+
+    /* Stats bar */
+    .stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-item h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-item h3 .accent-num { color: var(--accent); }
+
+    .stat-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Sections common */
+    section { padding: 100px 24px; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--text-secondary);
+      max-width: 560px;
+      font-size: 1rem;
+      margin-bottom: 48px;
+    }
+
+    /* Expertise grid */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+
+    .expertise-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s;
+    }
+
+    .expertise-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--text-muted);
+      transform: translateY(-2px);
+    }
+
+    .expertise-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+
+    .expertise-card h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .expertise-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .expertise-card .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 16px;
+    }
+
+    .expertise-card .tags span {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .project-card .project-type {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .project-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .project-card .tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .project-card .tech span {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 3px 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Experience / timeline */
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .timeline-item:last-child { margin-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg);
+      box-shadow: 0 0 0 2px var(--accent-dim);
+    }
+
+    .timeline-item .period {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .timeline-item .role {
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .timeline-item p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Contact */
+    .contact-section {
+      text-align: center;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-section .section-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 12px 24px;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .contact-link:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 24px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 11, 0.98);
+        border-bottom: 1px solid var(--border);
+        padding: 20px 24px;
+        gap: 16px;
+      }
+
+      .stats { gap: 24px; flex-wrap: wrap; }
+
+      .hero h1 { font-size: 2.2rem; }
+
+      .expertise-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">SK<span>.</span></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        Available for projects
+      </div>
+      <h1>
+        I build<br>
+        <span class="highlight">AI-powered automation</span><br>
+        that scales businesses
+      </h1>
+      <p>
+        AI Automation Engineer with 4+ years of experience designing and deploying 
+        intelligent workflows, conversational AI agents, and data pipelines that 
+        replace manual processes with reliable, scalable systems.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">See My Work →</a>
+        <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <h3><span class="accent-num">4</span>+</h3>
+          <p>Years building automation</p>
+        </div>
+        <div class="stat-item">
+          <h3><span class="accent-num">50</span>+</h3>
+          <p>Workflows deployed</p>
+        </div>
+        <div class="stat-item">
+          <h3><span class="accent-num">10</span>+</h3>
+          <p>AI agents in production</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Expertise -->
+  <section id="expertise">
+    <div class="section-inner">
+      <div class="section-label">What I Do</div>
+      <h2 class="section-title">Core Expertise</h2>
+      <p class="section-desc">
+        Full-spectrum AI automation — from conversational agents to complex 
+        multi-step workflows. I turn broken processes into autonomous systems.
+      </p>
+      <div class="expertise-grid">
+        <div class="expertise-card">
+          <div class="icon">🤖</div>
+          <h3>Conversational AI Agents</h3>
+          <p>Custom voice and chat agents using Vapi, Twilio, and LLMs. Handles intake, triage, scheduling, and follow-ups without human touch.</p>
+          <div class="tags">
+            <span>Vapi</span><span>Twilio</span><span>OpenAI</span><span>Claude</span>
+          </div>
+        </div>
+        <div class="expertise-card">
+          <div class="icon">⚡</div>
+          <h3>Workflow Automation</h3>
+          <p>End-to-end automation pipelines using n8n and Make. Connects CRMs, email, calendars, Slack, and databases into cohesive flows.</p>
+          <div class="tags">
+            <span>n8n</span><span>Make</span><span>Zapier</span><span>Webhooks</span>
+          </div>
+        </div>
+        <div class="expertise-card">
+          <div class="icon">📊</div>
+          <h3>Data Pipelines & Scraping</h3>
+          <p>Stealth scrapers, enrichment engines, and ETL pipelines that extract, transform, and load data from any source reliably.</p>
+          <div class="tags">
+            <span>stealthy-fetch</span><span>Python</span><span>Supabase</span><span>PostgreSQL</span>
+          </div>
+        </div>
+        <div class="expertise-card">
+          <div class="icon">📱</div>
+          <h3>Full-Stack Apps</h3>
+          <p>Web and mobile applications with Flutter frontends and Supabase backends. Built for speed, deployed for scale.</p>
+          <div class="tags">
+            <span>Flutter</span><span>Supabase</span><span>React</span><span>PostgREST</span>
+          </div>
+        </div>
+        <div class="expertise-card">
+          <div class="icon">🧠</div>
+          <h3>LLM Integration & RAG</h3>
+          <p>Retrieval-augmented generation systems, AI document processing, and custom knowledge bases that make LLMs useful for real business data.</p>
+          <div class="tags">
+            <span>RAG</span><span>Embeddings</span><span>pgvector</span><span>Claude</span>
+          </div>
+        </div>
+        <div class="expertise-card">
+          <div class="icon">🔗</div>
+          <h3>CRM & Lead Automation</h3>
+          <p>LinkedIn outreach automation, lead enrichment, scoring pipelines, and multi-channel nurture sequences that convert.</p>
+          <div class="tags">
+            <span>LinkedIn API</span><span>Web Scraping</span><span>Enrichment</span><span>Sequences</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="work">
+    <div class="section-inner">
+      <div class="section-label">Experience</div>
+      <h2 class="section-title">Where I've Worked</h2>
+      <p class="section-desc">
+        Building automation systems that replace busywork with leverage.
+      </p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="period">2021 — Present</div>
+          <h3>OyeLabs</h3>
+          <div class="role">AI Automation Engineer</div>
+          <p>
+            Designing and deploying AI-powered automation solutions for clients across 
+            industries. Built conversational agents, workflow automation pipelines, and 
+            data integration systems that reduced manual effort by 70%+.
+          </p>
+        </div>
+        <div class="timeline-item">
+          <div class="period">2020 — 2021</div>
+          <h3>Agency & Freelance</h3>
+          <div class="role">Automation Developer</div>
+          <p>
+            Built custom automation solutions for solopreneurs and small businesses. 
+            Developed expertise in n8n, Make, web scraping, and API integration — 
+            delivering end-to-end systems that clients could run without technical support.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-inner">
+      <div class="section-label">Portfolio</div>
+      <h2 class="section-title">Selected Projects</h2>
+      <p class="section-desc">
+        Real systems I've built from scratch — each one solving a genuine operational problem.
+      </p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-type">WhatsApp AI Agent</div>
+          <h3>Intelligent Customer Support</h3>
+          <p>WhatsApp-first AI agent handling customer inquiries, appointment booking, and follow-ups with natural conversation flow. Reduced response time from hours to seconds.</p>
+          <div class="tech">
+            <span>Vapi</span><span>WhatsApp API</span><span>Claude</span><span>Supabase</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-type">Lead Generation</div>
+          <h3>LinkedIn Outreach Automation</h3>
+          <p>Automated lead research, connection requests, and multi-touch follow-up sequences. Enriched profiles with company data and scored leads by intent signals.</p>
+          <div class="tech">
+            <span>Python</span><span>LinkedIn API</span><span>n8n</span><span>Supabase</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-type">Web Scraping</div>
+          <h3>Stealth Data Extraction Engine</h3>
+          <p>Anti-bot web scraper for business data aggregation. Handles CAPTCHAs, rate limits, and rotating proxies. Extracts structured data from 100+ sources daily.</p>
+          <div class="tech">
+            <span>stealthy-fetch</span><span>Python</span><span>Playwright</span><span>PostgreSQL</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-type">Workflow Automation</div>
+          <h3>Newsletter Automation System</h3>
+          <p>End-to-end newsletter pipeline: scrapes trending content, summarizes with AI, formats into digest, and mails subscribers — zero human touch required.</p>
+          <div class="tech">
+            <span>n8n</span><span>OpenAI</span><span>SendGrid</span><span>Supabase</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-type">Voice AI</div>
+          <h3>Clinic Voice Agent</h3>
+          <p>Voice-based patient intake and appointment scheduling for a dermatology clinic. Handles 80% of inbound calls autonomously with natural Hindi-English bilingual conversation.</p>
+          <div class="tech">
+            <span>Vapi</span><span>Twilio</span><span>Claude</span><span>Cal.com API</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-type">Mobile App</div>
+          <h3>P2P Lending Platform</h3>
+          <p>Borrower qualification engine + investor matching + voice-enabled loan management. Real-time risk scoring and automated disbursement workflows.</p>
+          <div class="tech">
+            <span>Flutter</span><span>Supabase</span><span>Vapi</span><span>PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact-section">
+    <div class="section-inner">
+      <div class="section-label">Get in Touch</div>
+      <h2 class="section-title">Let's Build Something</h2>
+      <p class="section-desc" style="text-align: center;">
+        Have a process that needs automation? An AI agent you want to build? 
+        Let's talk about what's possible.
+      </p>
+      <div class="contact-grid">
+        <a href="mailto:kulkarni.shreerams.mails@gmail.com" class="contact-link">
+          <span>✉️</span> kulkarni.shreerams.mails@gmail.com
+        </a>
+        <a href="#" class="contact-link">
+          <span>💼</span> LinkedIn
+        </a>
+        <a href="#" class="contact-link">
+          <span>🐙</span> GitHub
+        </a>
+        <a href="#" class="contact-link">
+          <span>📍</span> Pune, India
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Shreeram Kulkarni — AI Automation Engineer. Built with grit.</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+    // Close nav on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+
+    // Smooth scroll for anchor links (fallback)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
