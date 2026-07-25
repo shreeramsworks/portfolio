@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Projects — Shreeram S. Kulkarni</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0b;
+      --bg-surface: #121214;
+      --bg-card: #1a1a1e;
+      --bg-card-hover: #222228;
+      --border: #2a2a30;
+      --text-primary: #f4f4f5;
+      --text-secondary: #a1a1aa;
+      --text-muted: #6b6b7a;
+      --accent: #22d3ee;
+      --accent-dim: #0891b2;
+      --accent-glow: rgba(34, 211, 238, 0.15);
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --gradient: linear-gradient(135deg, #22d3ee 0%, #a78bfa 60%, #f472b6 100%);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-full: 9999px;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+    @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    @keyframes fade-up { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.05s; }
+    .reveal-delay-2 { transition-delay: 0.1s; }
+    .reveal-delay-3 { transition-delay: 0.15s; }
+    .reveal-delay-4 { transition-delay: 0.2s; }
+    .reveal-delay-5 { transition-delay: 0.25s; }
+    .reveal-delay-6 { transition-delay: 0.3s; }
+    .reveal-delay-7 { transition-delay: 0.35s; }
+    .reveal-delay-8 { transition-delay: 0.4s; }
+
+    .section-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10, 10, 11, 0.82);
+      backdrop-filter: blur(18px) saturate(1.2);
+      -webkit-backdrop-filter: blur(18px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 24px;
+    }
+    .nav-logo { font-weight: 800; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--text-primary); text-decoration: none; }
+    .nav-logo .accent-c { color: var(--accent); }
+    .nav-links { display: flex; gap: 26px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent); color: #000 !important;
+      padding: 8px 22px; border-radius: var(--radius-full);
+      font-weight: 600 !important; font-size: 0.84rem !important;
+      transition: all 0.25s !important;
+    }
+    .nav-cta:hover { box-shadow: 0 0 30px var(--accent-glow); transform: scale(1.03); }
+    .nav-toggle { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; cursor: pointer; padding: 4px; }
+    .nav-count { font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 120px 0 50px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-surface);
+    }
+    .page-header .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.85rem; margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+    .page-header .back-link:hover { color: var(--accent); }
+    .page-header h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .page-header .subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 600px; }
+    .page-header .project-count { color: var(--accent); font-family: var(--font-mono); font-size: 0.9rem; margin-top: 16px; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
+      position: sticky; top: 64px; z-index: 100;
+      background: rgba(10, 10, 11, 0.95); backdrop-filter: blur(12px);
+    }
+    .filter-btn {
+      padding: 6px 16px; border-radius: var(--radius-full);
+      border: 1px solid var(--border); background: var(--bg-card);
+      color: var(--text-secondary); font-size: 0.8rem;
+      cursor: pointer; transition: all 0.2s; font-family: var(--font-sans);
+    }
+    .filter-btn:hover { border-color: var(--text-muted); color: var(--text-primary); }
+    .filter-btn.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+
+    /* CATEGORY SECTION */
+    .category-section { padding: 50px 0; border-bottom: 1px solid var(--border); }
+    .category-section:last-child { border-bottom: none; }
+    .category-section:last-of-type { margin-bottom: 40px; }
+
+    .category-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 28px;
+    }
+    .category-header .icon { font-size: 1.6rem; }
+    .category-header h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+    .category-header .count {
+      font-size: 0.8rem; color: var(--text-muted);
+      font-family: var(--font-mono); background: var(--bg-card);
+      padding: 2px 10px; border-radius: var(--radius-full);
+    }
+
+    /* PROJECT CARD (full detail) */
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 16px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient);
+      background-size: 200% 200%;
+      animation: gradient-shift 4s ease infinite;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .project-card.featured {
+      border-color: rgba(34, 211, 238, 0.25);
+    }
+    .project-card.featured::after {
+      content: 'Featured'; position: absolute; top: 12px; right: 12px;
+      font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em;
+      background: rgba(34, 211, 238, 0.15); border: 1px solid rgba(34, 211, 238, 0.25);
+      color: var(--accent); padding: 2px 10px; border-radius: var(--radius-full);
+      font-family: var(--font-mono);
+    }
+
+    .project-card .project-type {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); font-weight: 600; font-family: var(--font-mono);
+      margin-bottom: 8px;
+    }
+    .project-card .demand-tag {
+      display: inline-block;
+      background: rgba(74, 222, 128, 0.12); border: 1px solid rgba(74, 222, 128, 0.25);
+      border-radius: var(--radius-sm); padding: 2px 10px;
+      font-size: 0.65rem; color: var(--green); font-family: var(--font-mono);
+      margin-left: 8px; vertical-align: middle;
+    }
+    .project-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 6px; }
+    .project-card .project-meta {
+      font-size: 0.78rem; color: var(--text-muted); margin-bottom: 10px; font-family: var(--font-mono);
+    }
+    .project-card .description {
+      font-size: 0.88rem; color: var(--text-secondary);
+      line-height: 1.65; margin-bottom: 12px;
+    }
+    .project-card .highlights {
+      list-style: none; margin-bottom: 14px;
+    }
+    .project-card .highlights li {
+      font-size: 0.82rem; color: var(--text-muted);
+      padding: 3px 0; padding-left: 18px; position: relative;
+    }
+    .project-card .highlights li::before {
+      content: '→'; position: absolute; left: 0; color: var(--accent);
+    }
+    .project-card .tech {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .project-card .tech span {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 3px 10px;
+      font-size: 0.7rem; color: var(--text-muted); font-family: var(--font-mono);
+    }
+    .project-card .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono);
+    }
+    .project-card .card-footer a {
+      color: var(--accent); text-decoration: none;
+      font-size: 0.82rem;
+    }
+    .project-card .card-footer a:hover { text-decoration: underline; }
+
+    .back-to-home {
+      text-align: center; padding: 40px 0 60px;
+    }
+    .back-to-home a {
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+
+    footer {
+      padding: 32px 24px; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 0.8rem; color: var(--text-muted); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; border-radius: var(--radius-full);
+      font-weight: 600; font-size: 0.88rem; text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: none; cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover { box-shadow: 0 0 30px var(--accent-glow); transform: translateY(-2px); }
+    .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--text-muted); transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: absolute; top: 64px;
+        left: 0; right: 0; background: rgba(10, 10, 11, 0.98);
+        border-bottom: 1px solid var(--border); padding: 20px 24px; gap: 16px;
+      }
+      .nav-links.open .nav-cta { width: fit-content; }
+      .filter-bar { gap: 6px; }
+      .filter-btn { font-size: 0.72rem; padding: 4px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="accent-c">SK</span></a>
+      <span class="nav-count">Portfolio</span>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#expertise">Expertise</a></li>
+        <li><a href="index.html#work">Experience</a></li>
+        <li><a href="projects.html" class="active">All Projects</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="section-inner">
+      <a href="index.html" class="back-link reveal visible">← Back to Home</a>
+      <h1 class="reveal visible reveal-delay-1">All Projects</h1>
+      <p class="subtitle reveal visible reveal-delay-2">
+        Every system I've built — from production-grade AI agents to data analytics dashboards.
+        Browse by category or search for what interests you.
+      </p>
+      <div class="project-count reveal visible reveal-delay-3">Total: 30+ projects across 6 categories</div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar section-inner reveal visible">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="ai-agents">🤖 AI Agents</button>
+    <button class="filter-btn" data-filter="lead-gen">⚡ Lead Gen & Sales</button>
+    <button class="filter-btn" data-filter="analytics">📊 Data Analytics</button>
+    <button class="filter-btn" data-filter="fintech">💰 Fintech & Trading</button>
+    <button class="filter-btn" data-filter="tools">🛠️ Business Tools</button>
+    <button class="filter-btn" data-filter="experiments">🧪 Experiments</button>
+  </div>
+
+  <!-- PROJECTS CONTENT -->
+  <div class="section-inner">
+
+    <!-- ===== CATEGORY: AI Agents & Automation ===== -->
+    <section class="category-section" data-category="ai-agents">
+      <div class="category-header reveal">
+        <span class="icon">🤖</span>
+        <h2>AI Agents & Automation</h2>
+        <span class="count">9 projects</span>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-1">
+        <div class="project-type">Conversational AI <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>WhatsApp AI Receptionist (Restaurant Bot)</h3>
+        <div class="project-meta">Built: 2024 · Status: Production</div>
+        <p class="description">
+          Full-featured WhatsApp AI agent for restaurants and service businesses. Handles menu walk-throughs,
+          order taking, and customer conversations completely autonomously. GPT-4o-mini driven with per-customer
+          chat memory keyed by phone number. Custom Python ↔ WhatsApp bridge on VPS (bypasses Cloud API limitations).
+          Two-tab Google Sheet tracks conversation log + orders ledger. Promotion-aware pricing with sentinel-string
+          order triggers. Built for real-time restaurant operations.
+        </p>
+        <ul class="highlights">
+          <li>GPT-4o-mini agent with real-time conversation flow and context switching</li>
+          <li>Custom WhatsApp bridge on VPS — bypasses expensive Cloud API rate limits</li>
+          <li>Two-tab Google Sheet: conversation log + orders ledger in sync</li>
+          <li>Promotion-aware dynamic pricing with sentinel-string triggers</li>
+          <li>Bilingual Hindi-English with context-aware language switching</li>
+        </ul>
+        <div class="tech"><span>GPT-4o-mini</span><span>WhatsApp API</span><span>Python</span><span>Google Sheets</span><span>VPS</span></div>
+        <div class="card-footer">50+ nodes in n8n · <span>Production since 2025</span></div>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-2">
+        <div class="project-type">Voice AI <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>AI Voice-Calling Agent (Healthcare)</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | Client: Dental & Dermatology clinics</div>
+        <p class="description">
+          Voice-based intake and appointment booking system for healthcare clinics. Handles 80% of inbound calls
+          autonomously using ElevenLabs for natural speech and Google Gemini for conversation logic. Manages
+          appointment booking, rescheduling, cancellations, and patient intake. Integrates Google Calendar for
+          live availability checks and Google Sheets for patient records. Bilingual Hindi-English with natural
+          context-aware language mixing.
+        </p>
+        <ul class="highlights">
+          <li>ElevenLabs + Google Gemini for natural, human-like voice conversation</li>
+          <li>Full appointment lifecycle: book, reschedule, cancel — via voice</li>
+          <li>Google Calendar integration for real-time slot availability</li>
+          <li>Patient intake, triage questions, and follow-up scheduling</li>
+          <li>Bilingual Hindi-English with seamless code-switching</li>
+        </ul>
+        <div class="tech"><span>ElevenLabs</span><span>Gemini</span><span>Google Calendar</span><span>Google Sheets</span><span>Supabase</span><span>n8n</span></div>
+        <div class="card-footer">80% calls handled autonomously · 16-node n8n workflow</div>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-3">
+        <div class="project-type">Fintech AI <span class="demand-tag">📈 GROWING</span></div>
+        <h3>MoonBank P2P — Borrower Qualify + Investor Match + AI Voice</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | Client: Fintech platform</div>
+        <p class="description">
+          Complete P2P lending lifecycle automation. LLM-driven borrower qualification chat that dynamically
+          scores borrowers, matches them to investors from a knowledge base based on risk profile and preferences,
+          then triggers ElevenLabs AI voice-calling agent for direct investor outreach. Full logging and email
+          notifications to team on qualified lead matches. Flutter frontend + Supabase backend.
+        </p>
+        <ul class="highlights">
+          <li>LLM qualification chat with dynamic risk scoring and approval logic</li>
+          <li>Knowledge base investor matching by risk profile, amount, and preferences</li>
+          <li>ElevenLabs voice-calling agent for real-time investor outreach</li>
+          <li>Automated email notifications to team on qualified lead matches</li>
+          <li>Full loan lifecycle: qual → match → voice outreach → disbursement</li>
+        </ul>
+        <div class="tech"><span>Flutter</span><span>Supabase</span><span>Vapi</span><span>ElevenLabs</span><span>OpenAI</span><span>Gmail</span></div>
+        <div class="card-footer">18-node n8n workflow · Fintech production</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-type">LLM Systems</div>
+        <h3>RAG Agent — Upload & Retrieve Data</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          Retrieval-Augmented Generation system allowing document uploads, semantic chunking, vector embedding,
+          and natural language querying. Users upload documents, the system processes them through an embedding
+          pipeline, stores vectors in Supabase/pgvector, and answers questions against the ingested corpus.
+          Built as an n8n workflow with LangChain nodes for document processing and retrieval.
+        </p>
+        <ul class="highlights">
+          <li>Multi-format document ingestion (PDF, DOCX, text, HTML)</li>
+          <li>Semantic chunking with configurable overlap strategy</li>
+          <li>Vector storage in Supabase/pgvector with similarity search</li>
+          <li>LLM-powered answer generation with source citations</li>
+        </ul>
+        <div class="tech"><span>n8n</span><span>LangChain</span><span>pgvector</span><span>OpenAI</span><span>Supabase</span></div>
+        <div class="card-footer">12-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-type">AI Apps</div>
+        <h3>Pixora AI — E-Commerce Image SEO</h3>
+        <div class="project-meta">Built: Dec 2025 · GitHub: shreeramsworks/Pixora_AI</div>
+        <p class="description">
+          E-commerce product image SEO automation via Google Gemini 3. Automatically generates optimized alt text,
+          titles, and tags for product images — compatible with Shopify, Amazon, and Etsy. Helps e-commerce sellers
+          improve image SEO at scale without manual effort.
+        </p>
+        <ul class="highlights">
+          <li>Google Gemini 3 powered image analysis and description generation</li>
+          <li>Bulk processing for catalog-sized image sets</li>
+          <li>Platform-specific output formats (Shopify, Amazon, Etsy)</li>
+        </ul>
+        <div class="tech"><span>Gemini 3</span><span>TypeScript</span><span>React</span></div>
+        <div class="card-footer">December 2025 · TypeScript</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-6">
+        <div class="project-type">AI Apps</div>
+        <h3>DermAI Coach — AI Skin Health</h3>
+        <div class="project-meta">Built: Dec 2025 · GitHub: shreeramsworks/DermAI_Coach</div>
+        <p class="description">
+          Privacy-focused AI skin health tracking application. Built with React frontend and Google Gemini 3 Pro
+          for skin analysis. Designed with privacy-first architecture — user images processed locally with minimal
+          data persistence.
+        </p>
+        <div class="tech"><span>Gemini 3 Pro</span><span>React</span><span>TypeScript</span></div>
+        <div class="card-footer">December 2025 · TypeScript</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-7">
+        <div class="project-type">AI Apps</div>
+        <h3>AI-Powered Business Dashboard</h3>
+        <div class="project-meta">Built: Sep 2025 · GitHub: shreeramsworks/AI-Powered-Business-Dashboard</div>
+        <p class="description">
+          Dynamic AI-powered business data dashboard built with Google AI Studio. Visualizes business metrics,
+          generates insights, and provides natural language querying against business data. Deployed on Vercel.
+        </p>
+        <div class="tech"><span>Google AI Studio</span><span>TypeScript</span><span>Vercel</span></div>
+        <div class="card-footer">September 2025 · Deployed on Vercel</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-8">
+        <div class="project-type">Prompt Engineering</div>
+        <h3>CraftPrompt / GenPrompt — Prompt Tools</h3>
+        <div class="project-meta">Built: Mar-May 2025 · GitHub: shreeramsworks/CraftPrompt, genprompt</div>
+        <p class="description">
+          Suite of prompt crafting and generation tools built with Google AI Studio. Helps users design,
+          structure, and optimize prompts for various LLM models. Includes template library and prompt
+          versioning.
+        </p>
+        <div class="tech"><span>Google AI Studio</span><span>TypeScript</span></div>
+        <div class="card-footer">March–May 2025</div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY: Lead Gen & Sales ===== -->
+    <section class="category-section" data-category="lead-gen">
+      <div class="category-header reveal">
+        <span class="icon">⚡</span>
+        <h2>Lead Generation & Sales Automation</h2>
+        <span class="count">7 projects</span>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-1">
+        <div class="project-type">Lead Gen Microservices <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>MEE — Market Expansion Engine</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | 5 microservices</div>
+        <p class="description">
+          Modular, webhook-callable lead generation microservice suite. Comprises 5 independent services:
+          Google Maps Scraper (SerpAPI → GPS-targeted business extraction → Supabase dedup), Website Enrichment
+          (multi-page crawl with email MX validation and social profile extraction), Deep Enrich (Groq LLM-guided
+          page ranking with confidence scoring), LLM Outreach Generator (personalized cold messages with scoring),
+          and Combined Run orchestration. Used daily for client lead generation.
+        </p>
+        <ul class="highlights">
+          <li>GPS-targeted business scraping with Supabase deduplication</li>
+          <li>Multi-page crawl with dual user-agent fallback and email MX validation</li>
+          <li>Groq LLM-guided deep enrichment with confidence scoring (1–5)</li>
+          <li>Personalized cold email/LinkedIn/WhatsApp message generation</li>
+          <li>Combined Run orchestrator with unified stats response</li>
+        </ul>
+        <div class="tech"><span>SerpAPI</span><span>Groq</span><span>Supabase</span><span>n8n</span><span>Python</span></div>
+        <div class="card-footer">24-node enrichment · 13-node outreach · 4-node orchestrator</div>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-2">
+        <div class="project-type">Sales Automation <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>Apex Windows TX — Complete Sales Automation</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | Client: US Home Services</div>
+        <p class="description">
+          End-to-end quoting and CRM system for US home services company. AI-generated estimates with structured
+          manager approval workflow, Kanban CRM dashboard for pipeline management, and 24-hour escalation alerts
+          for stale leads and quotes. Transformed quote turnaround from 1-2 days to under 2 hours. Led team of
+          3 interns through full delivery cycle.
+        </p>
+        <ul class="highlights">
+          <li>AI estimate generation with manager review and approval flow</li>
+          <li>Kanban CRM dashboard for drag-and-drop pipeline management</li>
+          <li>24-hour escalation alerts for stale leads and quotes</li>
+          <li>Team lead: 3 interns delivered to production</li>
+        </ul>
+        <div class="tech"><span>Airtable</span><span>n8n</span><span>Claude</span><span>Supabase</span><span>Discord</span></div>
+        <div class="card-footer">162+ Apex tables · Led 3 interns · Quote time 1-2 days → &lt;2 hours</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-type">Lead Generation</div>
+        <h3>LinkedIn Automation v2.0 — Enterprise Grade</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          Enterprise-grade LinkedIn outreach automation. Handles automated lead research, connection requests,
+          multi-touch follow-up sequences, profile enrichment, and intent-based lead scoring. 27-node n8n
+          workflow with comprehensive error handling and rate-limit awareness.
+        </p>
+        <ul class="highlights">
+          <li>Automated lead research and profile enrichment</li>
+          <li>Multi-touch connection and follow-up sequences</li>
+          <li>Intent-based lead scoring with engagement tracking</li>
+          <li>Rate-limit aware scheduling to avoid account restrictions</li>
+        </ul>
+        <div class="tech"><span>Python</span><span>LinkedIn API</span><span>n8n</span><span>Supabase</span><span>SerpAPI</span></div>
+        <div class="card-footer">27-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-type">Lead Generation</div>
+        <h3>LinkedIn Leads Scraping & Enrichment</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          Parallel LinkedIn lead extraction and enrichment pipeline. Scrapes LinkedIn search results from Google
+          Maps data, enriches with contact details and company info. 30-node workflow combining multiple data
+          sources for comprehensive lead profiles.
+        </p>
+        <div class="tech"><span>SerpAPI</span><span>Apify</span><span>n8n</span><span>Supabase</span></div>
+        <div class="card-footer">30-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-type">Lead Generation</div>
+        <h3>Google Lead Scraper</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          Targeted Google Maps business lead extraction. Searches by keyword and location, extracts business name,
+          phone, email, website, rating, and reviews. 24-node n8n workflow with dedup and enrichment pipeline.
+        </p>
+        <div class="tech"><span>SerpAPI</span><span>Google Maps</span><span>n8n</span><span>Supabase</span></div>
+        <div class="card-footer">24-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-6">
+        <div class="project-type">Sales Systems</div>
+        <h3>Tawk.to Lead Management (Live)</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | Client: OyeLabs</div>
+        <p class="description">
+          Production live-chat lead management system. Intakes leads from Tawk.to live chat, processes through
+          round-robin assignment engine, tracks agent availability and turn order in Supabase, auto-reassigns
+          leads when agents are inactive. Powered by Anthropic Claude for chat assistance, with WhatsApp Business
+          API (WATI) and Discord notifications. 85-node workflow — the largest in production.
+        </p>
+        <ul class="highlights">
+          <li>Round-robin lead assignment with agent availability tracking</li>
+          <li>Auto-reassignment on agent inactivity with timeout logic</li>
+          <li>Anthropic Claude-powered chat assistance for agents</li>
+          <li>WhatsApp (WATI) + Discord multi-channel notifications</li>
+        </ul>
+        <div class="tech"><span>Tawk.to</span><span>Claude</span><span>WATI</span><span>Discord</span><span>Supabase</span></div>
+        <div class="card-footer">85-node n8n workflow · Live production</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-7">
+        <div class="project-type">Sales Systems</div>
+        <h3>Discord Button Handler (Sales Ops)</h3>
+        <div class="project-meta">Built: 2025 · Status: Production | Client: OyeLabs</div>
+        <p class="description">
+          Internal sales operations tool allowing team members to trigger automation workflows via Discord
+          buttons. Handles lead processing, reporting, and data export through simple button interactions.
+          integrates with the Tawk.to lead management system for unified sales ops.
+        </p>
+        <div class="tech"><span>Discord API</span><span>n8n</span><span>Supabase</span></div>
+        <div class="card-footer">47-node n8n workflow · Live production</div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY: Data Analytics & Visualization ===== -->
+    <section class="category-section" data-category="analytics">
+      <div class="category-header reveal">
+        <span class="icon">📊</span>
+        <h2>Data Analytics & Visualization</h2>
+        <span class="count">14 projects</span>
+      </div>
+
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-type">Analytics Pipeline</div>
+        <h3>DATA ANALYST & VISUALIZATION</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          Large-scale data analysis and visualization pipeline. 67-node n8n workflow processing and visualizing
+          business data. Handles data ingestion, transformation, aggregation, and dashboard generation.
+        </p>
+        <div class="tech"><span>n8n</span><span>PostgreSQL</span><span>Data Viz</span></div>
+        <div class="card-footer">67-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-type">Data Analysis</div>
+        <h3>Road Accident Data Analysis</h3>
+        <div class="project-meta">Built: Feb 2025 · GitHub: shreeramsworks/-Road-Accident-Data-Analysis-</div>
+        <p class="description">
+          Comprehensive analysis of road accident data identifying high-risk areas, peak accident times, and
+          contributing factors. Power BI dashboard with interactive filters for location and time analysis.
+        </p>
+        <div class="tech"><span>Power BI</span><span>Data Analysis</span></div>
+        <div class="card-footer">February 2025</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-type">Data Analysis</div>
+        <h3>Vrinda Store Annual Report 2022</h3>
+        <div class="project-meta">Built: Jul 2024 · GitHub: shreeramsworks/VRINDA-STORE-ANNUAL-REPORT-2022</div>
+        <p class="description">
+          Annual sales performance report for Vrinda Store. Analyzes monthly trends, top-selling categories,
+          customer demographics, and growth opportunities.
+        </p>
+        <div class="tech"><span>Power BI</span><span>Excel</span></div>
+        <div class="card-footer">July 2024</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-type">Data Analysis</div>
+        <h3>Comprehensive Bank Loan Portfolio Analysis</h3>
+        <div class="project-meta">Built: Aug 2024 · GitHub: shreeramsworks/Comprehensive-Bank-Loan-Portfolio-Analysis-...</div>
+        <p class="description">
+          In-depth analysis of bank loan portfolio performance. Examines default rates, risk segments,
+          regional distribution, and provides strategic recommendations for portfolio optimization.
+        </p>
+        <div class="tech"><span>SQL</span><span>Power BI</span></div>
+        <div class="card-footer">August 2024</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-type">Data Analysis</div>
+        <h3>Music Store Analysis — Growth Opportunities</h3>
+        <div class="project-meta">Built: Aug 2024 · GitHub: shreeramsworks/Music-Store-Analysis...</div>
+        <p class="description">
+          Customer behavior analysis for a music store. Identifies purchase patterns, popular genres,
+          customer segments, and growth opportunities using SQL analytics.
+        </p>
+        <div class="tech"><span>SQL</span><span>Data Analysis</span></div>
+        <div class="card-footer">August 2024</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-6">
+        <div class="project-type">Data Analysis</div>
+        <h3>Netflix Trends Analysis</h3>
+        <div class="project-meta">Built: Sep 2024 · GitHub: shreeramsworks/Netflix-Trends-Analysis</div>
+        <p class="description">
+          Analysis of Netflix content trends: content type distribution (movies vs TV shows), release patterns,
+          director and actor impact analysis, ratings distribution. Jupyter Notebook-based analysis.
+        </p>
+        <div class="tech"><span>Jupyter</span><span>Python</span><span>Pandas</span></div>
+        <div class="card-footer">September 2024</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-7">
+        <div class="project-type">Data Analysis</div>
+        <h3>Blinkit Data Analysis (Power BI)</h3>
+        <div class="project-meta">Built: Oct 2024 · GitHub: shreeramsworks/Blinkit-Data-Analysis-using-PowerBi</div>
+        <p class="description">
+          Sales data analysis for Blinkit quick-commerce platform. Category-wise performance, delivery time
+          analysis, customer rating correlations, and regional sales distribution.
+        </p>
+        <div class="tech"><span>Power BI</span></div>
+        <div class="card-footer">October 2024</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-8">
+        <div class="project-type">Data Analysis</div>
+        <h3>Retail Sales Analysis</h3>
+        <div class="project-meta">Built: Feb 2025</div>
+        <p class="description">Retail sales performance analysis identifying trends, seasonal patterns, and growth opportunities.</p>
+        <div class="tech"><span>SQL</span><span>Power BI</span></div>
+        <div class="card-footer">February 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>Comprehensive Nutritional Analysis of Dishes</h3>
+        <div class="project-meta">Built: Mar 2025</div>
+        <p class="description">Nutritional values dashboard analyzing dish ingredients, calorie counts, macro distribution, and health recommendations.</p>
+        <div class="tech"><span>Power BI</span><span>Data Analysis</span></div>
+        <div class="card-footer">March 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>Indian Startups Funding (2015–2021)</h3>
+        <div class="project-meta">Built: Mar 2025</div>
+        <p class="description">Analysis of Indian startup funding trends — sector-wise investment, stage distribution, geographic patterns, and unicorn emergence.</p>
+        <div class="tech"><span>Power BI</span><span>Data Analysis</span></div>
+        <div class="card-footer">March 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>Hospital Performance Tracker</h3>
+        <div class="project-meta">Built: Mar 2025</div>
+        <p class="description">Hospital performance visualization and analysis — patient volume, wait times, department efficiency, and quality metrics.</p>
+        <div class="tech"><span>Power BI</span><span>SQL</span></div>
+        <div class="card-footer">March 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>RideScope — Uber Trip Data Analysis</h3>
+        <div class="project-meta">Built: Apr 2025</div>
+        <p class="description">Uber trip metrics analysis — ride patterns, surge pricing impact, driver utilization, and city-level comparisons.</p>
+        <div class="tech"><span>Power BI</span><span>Data Analysis</span></div>
+        <div class="card-footer">April 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>Netflix Stock Analysis</h3>
+        <div class="project-meta">Built: Jul 2025</div>
+        <p class="description">Dynamic Netflix stock analysis dashboard with moving averages, volatility indicators, and trend analysis.</p>
+        <div class="tech"><span>Power BI</span></div>
+        <div class="card-footer">July 2025</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Data Analysis</div>
+        <h3>Pizza Sales Data Analysis</h3>
+        <div class="project-meta">Built: Aug 2024</div>
+        <p class="description">SQL + Power BI analysis of pizza sales: top-selling items, peak hours, delivery performance, and revenue trends.</p>
+        <div class="tech"><span>SQL</span><span>Power BI</span></div>
+        <div class="card-footer">August 2024</div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY: Fintech & Trading ===== -->
+    <section class="category-section" data-category="fintech">
+      <div class="category-header reveal">
+        <span class="icon">💰</span>
+        <h2>Fintech & Trading</h2>
+        <span class="count">3 projects</span>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Trading Bot</div>
+        <h3>Simplified Trading Bot — Binance Futures Testnet</h3>
+        <div class="project-meta">Built: Mar 2026 · GitHub: shreeramsworks/-Build-a-Simplified-Trading-Bot-...</div>
+        <p class="description">
+          Python trading bot for Binance Futures Testnet (USDT-M). Implements basic trading strategies with
+          order management, position tracking, and risk controls. Built for the Binance testnet environment
+          so strategies can be validated without real funds.
+        </p>
+        <div class="tech"><span>Python</span><span>Binance API</span><span>WebSocket</span></div>
+        <div class="card-footer">March 2026 · Python</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Finance</div>
+        <h3>FinanceTrack</h3>
+        <div class="project-meta">Built: Feb 2025 · GitHub: shreeramsworks/FinanceTrack</div>
+        <p class="description">
+          Personal finance tracking application built with TypeScript. Tracks expenses, income, budgets, and
+          provides spending insights through interactive visualizations.
+        </p>
+        <div class="tech"><span>TypeScript</span><span>React</span></div>
+        <div class="card-footer">February 2025</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Finance</div>
+        <h3>Credit Card Financial Dashboard</h3>
+        <div class="project-meta">Built: Jul 2024</div>
+        <p class="description">
+          Power BI credit card financial dashboard for tracking spending patterns, payment history, rewards,
+          and credit utilization across multiple cards.
+        </p>
+        <div class="tech"><span>Power BI</span><span>SQL</span></div>
+        <div class="card-footer">July 2024</div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY: Business Tools ===== -->
+    <section class="category-section" data-category="tools">
+      <div class="category-header reveal">
+        <span class="icon">🛠️</span>
+        <h2>Business Tools & Productivity</h2>
+        <span class="count">9 projects</span>
+      </div>
+
+      <div class="project-card featured reveal reveal-delay-1">
+        <div class="project-type">Productivity <span class="demand-tag">📈 GROWING</span></div>
+        <h3>Multi-Platform Job Search Engine</h3>
+        <div class="project-meta">Built: Jul 2026 · GitHub: shreeramsworks/Job-Search</div>
+        <p class="description">
+          High-performance FastAPI job scraper aggregating listings from 7 platforms simultaneously — LinkedIn,
+          Indeed, Glassdoor, ZipRecruiter, Google Jobs, Bayt, and Naukri. Uses StealthySession anti-block with
+          custom Scrapling fetchers, provides REST API with auto-generated Swagger docs, and supports n8n webhook
+          integration for automated job matching. Paired with resume-to-job matching dashboard (React + Supabase).
+        </p>
+        <ul class="highlights">
+          <li>Parallel scraping across 7 platforms with stealth anti-block</li>
+          <li>FastAPI REST wrapper with Swagger documentation</li>
+          <li>n8n webhook-ready for automated job matching pipelines</li>
+          <li>Resume-to-job matching dashboard (React + Supabase + n8n)</li>
+        </ul>
+        <div class="tech"><span>FastAPI</span><span>JobSpy</span><span>Scrapling</span><span>React</span><span>Supabase</span><span>n8n</span></div>
+        <div class="card-footer">July 2026 · Python · Active development</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-type">Productivity</div>
+        <h3>Resume-to-Job Matching Dashboard</h3>
+        <div class="project-meta">Built: Jul 2026 · GitHub: shreeramsworks/resume_to_job</div>
+        <p class="description">
+          React + Supabase dashboard that scores resumes against live job listings. Integrates with the Job
+          Search Engine via n8n pipeline for automated job matching and ranking.
+        </p>
+        <div class="tech"><span>React</span><span>Supabase</span><span>n8n</span><span>TypeScript</span></div>
+        <div class="card-footer">July 2026</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-3">
+        <div class="project-type">Productivity</div>
+        <h3>Hermes Job Proposal Generator</h3>
+        <div class="project-meta">Built: Jul 2026 · GitHub: shreeramsworks/Hermes_job-_proposol</div>
+        <p class="description">
+          Automated job proposal generator. Uses Scrapling for web data extraction and Notion workflow portfolio
+          matching to generate tailored job proposals and cover letters.
+        </p>
+        <div class="tech"><span>Python</span><span>Scrapling</span><span>Notion API</span></div>
+        <div class="card-footer">July 2026 · Python</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-4">
+        <div class="project-type">Content Marketing</div>
+        <h3>Newsletter Automation v3 — Problem Driven</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          End-to-end newsletter pipeline. Scrapes trending content from multiple sources, summarizes with AI,
+          formats into digest, and mails subscribers. Problem-driven content selection identifies high-interest
+          topics and frames them for maximum engagement. 25-node n8n workflow.
+        </p>
+        <div class="tech"><span>n8n</span><span>OpenAI</span><span>SendGrid</span><span>Supabase</span></div>
+        <div class="card-footer">25-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-5">
+        <div class="project-type">Business Intelligence</div>
+        <h3>Business Opportunitis (Reddit)</h3>
+        <div class="project-meta">Built: Jun 2026 · GitHub: shreeramsworks/Business-Opportunitis-Reddit-...</div>
+        <p class="description">
+          Market research tool that monitors Reddit for business opportunities. Analyzes pain points, complaints,
+          and unmet needs across subreddits to identify potential business ideas and market gaps.
+        </p>
+        <div class="tech"><span>Reddit API</span><span>n8n</span><span>OpenAI</span></div>
+        <div class="card-footer">13-node n8n workflow · June 2026</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-6">
+        <div class="project-type">Sales Strategy</div>
+        <h3>Create Million Dollar Offer</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">
+          AI-assisted sales strategy workflow that helps craft high-conversion offers. Analyzes market,
+          competitive landscape, and customer pain points to generate compelling value propositions
+          and offer structures. 35-node n8n workflow.
+        </p>
+        <div class="tech"><span>n8n</span><span>OpenAI</span><span>Market Analysis</span></div>
+        <div class="card-footer">35-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-7">
+        <div class="project-type">Productivity</div>
+        <h3>Invoice Records Manager</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">Automated invoice processing and record management. Extracts invoice data, validates against purchase orders, tracks payment status, and generates reports.</p>
+        <div class="tech"><span>n8n</span><span>Google Sheets</span></div>
+        <div class="card-footer">9-node n8n workflow</div>
+      </div>
+
+      <div class="project-card reveal reveal-delay-8">
+        <div class="project-type">Productivity</div>
+        <h3>Sheet to Dashboard</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">Automates Google Sheets data transformation into interactive dashboards. Handles data cleaning, aggregation, and visualization pipeline.</p>
+        <div class="tech"><span>n8n</span><span>Google Sheets</span></div>
+        <div class="card-footer">8-node n8n workflow</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-type">Productivity</div>
+        <h3>Workflows Backups Automation</h3>
+        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <p class="description">Automated backup system for n8n workflow exports. Scheduled export, version control, and off-site storage of all workflow configurations.</p>
+        <div class="tech"><span>n8n</span><span>Git</span></div>
+        <div class="card-footer">12-node n8n workflow</div>
+      </div>
+    </section>
+
+    <!-- ===== CATEGORY: Experiments ===== -->
+    <section class="category-section" data-category="experiments">
+      <div class="category-header reveal">
+        <span class="icon">🧪</span>
+        <h2>Experiments & Learning</h2>
+        <span class="count">7 projects</span>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Tool</div>
+        <h3>Croppy — AI Image Multi-Crop Tool</h3>
+        <div class="project-meta">Built: Dec 2024</div>
+        <p class="description">AI-powered image cropping tool that intelligently detects subjects and suggests optimal crop compositions for multiple aspect ratios.</p>
+        <div class="tech"><span>AI</span><span>Image Processing</span></div>
+        <div class="card-footer">December 2024</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Tool</div>
+        <h3>TeraGate — Terabox Video Downloader</h3>
+        <div class="project-meta">Built: Mar 2026 · Deployed: vercel.app</div>
+        <p class="description">Next.js application for downloading Terabox public videos. Simple interface for paste-and-download workflow. Deployed on Vercel.</p>
+        <div class="tech"><span>Next.js</span><span>JavaScript</span><span>Vercel</span></div>
+        <div class="card-footer">March 2026</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Learning</div>
+        <h3>LifeArc — Age Calculator & Family Milestones</h3>
+        <div class="project-meta">Built: Sep 2025</div>
+        <p class="description">Age calculator app with family milestones tracking and biorhythm monitoring. Tracks birthdays, anniversaries, and life events with visual timeline.</p>
+        <div class="tech"><span>TypeScript</span><span>React</span></div>
+        <div class="card-footer">September 2025</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Learning</div>
+        <h3>AI Summarizer</h3>
+        <div class="project-meta">Built: Aug 2025</div>
+        <p class="description">AI-powered text summarization tool. Experiments with different LLM models and summarization techniques for concise content extraction.</p>
+        <div class="tech"><span>TypeScript</span><span>OpenAI</span></div>
+        <div class="card-footer">August 2025</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Learning</div>
+        <h3>SparkLines — Pickup Line Generator</h3>
+        <div class="project-meta">Built: Feb 2025</div>
+        <p class="description">Fun experiment — AI-powered pickup line generator built with Google AI Studio. Demonstrates creative prompt engineering and playful AI application.</p>
+        <div class="tech"><span>Google AI Studio</span><span>TypeScript</span></div>
+        <div class="card-footer">February 2025</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Learning</div>
+        <h3>Upwork Scraper</h3>
+        <div class="project-meta">Built: Apr 2026</div>
+        <p class="description">Job scraping tool for Upwork. Extracts job listings with details for automated job matching and proposal generation.</p>
+        <div class="tech"><span>Python</span><span>Scrapling</span></div>
+        <div class="card-footer">April 2026</div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-type">Learning</div>
+        <h3>Pomodoro Timer (Multiple Variants)</h3>
+        <div class="project-meta">Built: Feb-Mar 2025</div>
+        <p class="description">Multiple Pomodoro timer implementations exploring different UI approaches, state management patterns, and TypeScript configurations.</p>
+        <div class="tech"><span>TypeScript</span><span>React</span></div>
+        <div class="card-footer">February–March 2025 · 4 variants</div>
+      </div>
+    </section>
+
+    <!-- BACK LINK -->
+    <div class="back-to-home reveal">
+      <a href="index.html" class="btn btn-secondary">← Back to Home</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Shreeram S. Kulkarni — AI Automation Engineer. Self-taught. Hands-on. Shipping.</p>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const toggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Intersection Observer for reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const categories = document.querySelectorAll('.category-section');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        categories.forEach(cat => {
+          if (filter === 'all' || cat.dataset.category === filter) {
+            cat.style.display = 'block';
+          } else {
+            cat.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
