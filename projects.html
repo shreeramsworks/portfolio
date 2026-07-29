@@ -370,8 +370,8 @@
       </div>
 
       <div class="project-card featured reveal reveal-delay-3">
-        <div class="project-type">Fintech AI <span class="demand-tag">📈 GROWING</span></div>
-        <h3>MoonBank P2P — Borrower Qualify + Investor Match + AI Voice</h3>
+        <div class="project-type">Fintech Lending</div>
+        <h3>Fintech P2P Lending — Borrower Qualify + Investor Match + AI Voice</h3>
         <div class="project-meta">Built: 2025 · Status: Production | Client: Fintech platform</div>
         <p class="description">
           Complete P2P lending lifecycle automation. LLM-driven borrower qualification chat that dynamically
@@ -465,6 +465,31 @@
         <div class="tech"><span>Google AI Studio</span><span>TypeScript</span></div>
         <div class="card-footer">March–May 2025</div>
       </div>
+      <div class="project-card featured reveal reveal-delay-8">
+        <div class="project-type">Agentic AI Platform <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>Hermes Agent — Autonomous AI System (Nous Research)</h3>
+        <div class="project-meta">Built: 2026 · Status: Production | Platform: Hermes Agent TUI</div>
+        <p class="description">
+          Configured and extended Hermes Agent as a multi-profile autonomous AI system — built production skills
+          (lead gen, resume analysis, web scraping, project proposal generation), scheduled cron jobs with
+          multi-platform delivery, integrated cross-platform gateway (Telegram, Discord, email, WhatsApp),
+          leveraged multi-agent delegation for parallel research subagents, configured MCP servers for tool
+          orchestration, and managed 6+ providers with routing and fallback chains. Built a Job Proposal
+          Generator skill using Hermes' full agentic pipeline — web research, RAG knowledge retrieval,
+          multi-agent synthesis, and structured output generation — to produce tailored proposals.
+        </p>
+        <ul class="highlights">
+          <li>Multi-profile architecture: separate environments for sales outreach, resume analysis, market research</li>
+          <li>Custom skill authoring & full lifecycle: create → test → patch → delete skills with SKILL.md spec</li>
+          <li>Cron job engineering: watchdog scripts with workdir injection, context chaining, multi-platform delivery</li>
+          <li>Cross-platform gateway: Telegram, Discord, email, WhatsApp, webhooks — unified messaging</li>
+          <li>Multi-agent delegation: parallel subagent fan-out for research, analysis, and content generation</li>
+          <li>MCP integration: stdio/HTTP server discovery, tool orchestration, workflow-as-an-MCP-server</li>
+          <li>Persistent memory system: SQLite + FTS5 with user profiles, session search across conversations</li>
+        </ul>
+        <div class="tech"><span>Hermes Agent</span><span>MCP</span><span>Cron</span><span>Telegram</span><span>Discord</span><span>Skills System</span><span>Multi-Provider</span><span>Delegation</span></div>
+        <div class="card-footer">Primary AI Agent Platform · Multi-profile · Production since 2026</div>
+      </div>
     </section>
 
     <!-- ===== CATEGORY: Lead Gen & Sales ===== -->
@@ -476,8 +501,8 @@
       </div>
 
       <div class="project-card featured reveal reveal-delay-1">
-        <div class="project-type">Lead Gen Microservices <span class="demand-tag">🔥 HIGH DEMAND</span></div>
-        <h3>MEE — Market Expansion Engine</h3>
+        <div class="project-type">Lead Gen Suite <span class="demand-tag">🔥 HIGH DEMAND</span></div>
+        <h3>AI Lead-Generation Microservice Suite</h3>
         <div class="project-meta">Built: 2025 · Status: Production | 5 microservices</div>
         <p class="description">
           Modular, webhook-callable lead generation microservice suite. Comprises 5 independent services:
@@ -538,15 +563,25 @@
 
       <div class="project-card reveal reveal-delay-4">
         <div class="project-type">Lead Generation</div>
-        <h3>LinkedIn Leads Scraping & Enrichment</h3>
-        <div class="project-meta">Built: 2025 · Status: Production</div>
+        <h3>Job Search & Resume Matching Dashboard</h3>
+        <div class="project-meta">Built: 2026 · Status: Production | Deployed: Resume Dash by Antigravity</div>
         <p class="description">
-          Parallel LinkedIn lead extraction and enrichment pipeline. Scrapes LinkedIn search results from Google
-          Maps data, enriches with contact details and company info. 30-node workflow combining multiple data
-          sources for comprehensive lead profiles.
+          Full-stack resume-to-job matching platform. Upload a PDF resume → AI generates 3 distinct career personas
+          (via OpenAI) → FastAPI backend scrapes LinkedIn, Indeed, Glassdoor, Naukri, Bayt, ZipRecruiter via JobSpy
+          → LLM match scoring (0–100%) between personas and live job listings → real-time dashboard with stats.
+          Includes HR contact enrichment (Serper/Apify), n8n pipeline orchestration for the full workflow, and
+          Supabase persistence with real-time subscriptions. Glassmorphic UI with Framer Motion animations.
         </p>
-        <div class="tech"><span>SerpAPI</span><span>Apify</span><span>n8n</span><span>Supabase</span></div>
-        <div class="card-footer">30-node n8n workflow</div>
+        <ul class="highlights">
+          <li>PDF resume upload → AI persona generation — 3 distinct career profiles with skill gap analysis</li>
+          <li>Multi-site job scrape: LinkedIn, Indeed, Glassdoor, Naukri, Bayt, ZipRecruiter — in parallel</li>
+          <li>LLM-driven match scoring comparing job descriptions against generated personas</li>
+          <li>HR contact enrichment via Serper and Apify for direct outreach</li>
+          <li>n8n workflow orchestration: PDF → parse → personas → scrape → match → store</li>
+          <li>Real-time Supabase dashboard with stats, filters, and search configuration</li>
+        </ul>
+        <div class="tech"><span>React</span><span>TypeScript</span><span>FastAPI</span><span>Supabase</span><span>n8n</span><span>OpenAI</span><span>JobSpy</span><span>Serper</span><span>Apify</span><span>Framer Motion</span></div>
+        <div class="card-footer">Full-stack AI matching · Resume Dash by Antigravity</div>
       </div>
 
       <div class="project-card reveal reveal-delay-5">
