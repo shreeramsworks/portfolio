@@ -406,6 +406,48 @@
     .timeline-item .role { font-size: 0.88rem; color: var(--accent); margin-bottom: 8px; }
     .timeline-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
 
+    /* SKILLS */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 16px; margin-top: 48px;
+    }
+    .skills-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px 28px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .skills-card:hover { background: var(--bg-card-hover); border-color: var(--text-muted); }
+    .skills-card h3 {
+      font-size: 0.92rem; font-weight: 600; margin-bottom: 14px;
+      color: var(--accent); font-family: var(--font-mono); letter-spacing: 0.02em;
+    }
+    .skills-card .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .skills-card .tags span {
+      background: var(--bg-surface); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 4px 11px;
+      font-size: 0.73rem; color: var(--text-secondary); font-family: var(--font-mono);
+    }
+
+    /* CERTIFICATIONS */
+    #certifications { background: var(--bg-surface); border-top: 1px solid var(--border); }
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 14px; margin-top: 40px;
+    }
+    .cert-item {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 20px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cert-item:hover {
+      background: var(--bg-card-hover); border-color: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+    .cert-item .cert-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .cert-item .cert-name { font-size: 0.88rem; font-weight: 600; line-height: 1.35; }
+    .cert-item .cert-meta { font-size: 0.74rem; color: var(--text-muted); margin-top: 2px; font-family: var(--font-mono); }
+
     /* CONTACT */
     #contact { text-align: center; background: var(--bg-surface); border-top: 1px solid var(--border); }
     #contact .section-inner { display: flex; flex-direction: column; align-items: center; }
@@ -459,9 +501,11 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#expertise">Expertise</a></li>
+        <li><a href="#skills">Skills</a></li>
         <li><a href="#work">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="projects.html" class="active">All Projects</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="projects.html">All Projects</a></li>
         <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
       </ul>
     </div>
@@ -605,6 +649,43 @@
     </div>
   </section>
 
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label reveal">Skills</div>
+      <h2 class="section-title reveal reveal-delay-1">What I Work With</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        The tools and technologies I ship with daily — from orchestration platforms to LLM stacks to data tooling.
+      </p>
+      <div class="skills-grid">
+        <div class="skills-card reveal reveal-delay-1">
+          <h3>Automation & Orchestration</h3>
+          <div class="tags"><span>n8n (Expert)</span><span>Business Process Automation</span><span>Workflow Architecture</span><span>Webhook & REST API Orchestration</span><span>Multi-Agent Systems</span><span>Error Handling</span><span>Watchdog Automation</span></div>
+        </div>
+        <div class="skills-card reveal reveal-delay-2">
+          <h3>AI / LLM Engineering</h3>
+          <div class="tags"><span>Prompt Engineering</span><span>RAG</span><span>LangChain</span><span>Agentic AI</span><span>MCP</span><span>OpenAI GPT</span><span>Google Gemini</span><span>Anthropic Claude</span><span>Pinecone</span><span>ChromaDB</span><span>BGE Embeddings</span></div>
+        </div>
+        <div class="skills-card reveal reveal-delay-3">
+          <h3>Backend & Data</h3>
+          <div class="tags"><span>Python</span><span>JavaScript</span><span>FastAPI</span><span>Supabase</span><span>PostgreSQL</span><span>MySQL</span><span>Docker</span><span>Google Sheets API</span><span>Next.js</span><span>REST API</span><span>Git</span><span>CI/CD Fundamentals</span></div>
+        </div>
+        <div class="skills-card reveal reveal-delay-4">
+          <h3>Data Sourcing & Enrichment</h3>
+          <div class="tags"><span>Web Scraping</span><span>Scrapling</span><span>StealthySession</span><span>SerpAPI</span><span>Serper API</span><span>Apify</span><span>Jina AI Reader</span><span>Email/Domain Validation</span><span>Lead Scoring & Enrichment</span></div>
+        </div>
+        <div class="skills-card reveal reveal-delay-5">
+          <h3>AI Platforms & Tools</h3>
+          <div class="tags"><span>Hermes Agent (Expert)</span><span>OpenClaw</span><span>Claude</span><span>Gemini</span><span>GPT-4o</span><span>ElevenLabs</span><span>Vapi</span><span>Flux.1</span><span>NVIDIA Nemotron</span><span>MiniMax</span><span>OpenRouter</span><span>Groq</span><span>Make</span></div>
+        </div>
+        <div class="skills-card reveal reveal-delay-6">
+          <h3>Productivity & Soft Skills</h3>
+          <div class="tags"><span>Microsoft 365 Copilot</span><span>Advanced Excel</span><span>Google Workspace</span><span>Power BI</span><span>Product-Centric Thinking</span><span>Stakeholder Communication</span><span>Technical Documentation</span><span>Project Planning</span><span>Problem Decomposition</span><span>Client-Facing Delivery</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- EXPERIENCE -->
   <section id="work">
     <div class="section-inner">
@@ -615,13 +696,13 @@
       </p>
       <div class="timeline">
         <div class="timeline-item reveal reveal-delay-1">
-          <div class="period">2024 — Present</div>
+          <div class="period">Apr 2026 — Present</div>
           <h3>OyeLabs</h3>
           <div class="role">AI Automation Engineer</div>
           <p>Designing and deploying production AI automation systems for clients. Built conversational agents (voice & chat), multi-stage lead engines, CRM integrations, and RAG pipelines. 29 n8n workflows in production.</p>
         </div>
         <div class="timeline-item reveal reveal-delay-3">
-          <div class="period">2021 — 2024</div>
+          <div class="period">2021 — Apr 2026</div>
           <h3>Self-Taught Automation Practice</h3>
           <div class="role">Independent AI Automation Builder</div>
           <p>Taught myself automation from scratch — Python scripts, web scrapers, n8n, Make, LLM integration. Built lead generation engines, newsletter automation, data pipelines, and voice agents. Delivered end-to-end systems for clients.</p>
@@ -663,14 +744,15 @@
               <li>Lead lifecycle: auto-creates leads with reference IDs, assigns salespersons, updates on every message</li>
               <li>AI reply suggestions: salesperson sends chat context → LLM generates suggested reply with tone & confidence</li>
               <li>15-min & 24-hr automated email reminders with LLM-generated lead summaries</li>
+              <li>~75% faster response time — recovers 12+ hrs of agent effort per week</li>
               <li>NVIDIA Gemma 3 via API for all inference</li>
             </ul>
             <div class="tech"><span>n8n</span><span>Supabase</span><span>NVIDIA Gemma 3</span><span>Gmail</span><span>WhatsApp</span></div>
           </div>
           <div class="project-featured-right">
             <div class="metric-grid">
-              <div class="metric"><div class="val">Real-time</div><div class="label">Lead Tracking</div></div>
-              <div class="metric"><div class="val">85+</div><div class="label">n8n Nodes</div></div>
+              <div class="metric"><div class="val">-75%</div><div class="label">Response Time</div></div>
+              <div class="metric"><div class="val">12+ hrs</div><div class="label">Agent Effort Saved/Wk</div></div>
             </div>
           </div>
         </div>
@@ -689,13 +771,14 @@
               <li>Multi-page crawl + email MX validation + social extraction</li>
               <li>Groq LLM-guided page ranking with confidence scoring</li>
               <li>Personalized cold messages with scoring (1–5)</li>
+              <li>1,000+ leads per 10-min run with ~90% email-find rate</li>
             </ul>
             <div class="tech"><span>SerpAPI</span><span>Groq</span><span>Supabase</span><span>n8n</span></div>
           </div>
           <div class="project-featured-right">
             <div class="metric-grid">
               <div class="metric"><div class="val">5</div><div class="label">Microservices</div></div>
-              <div class="metric"><div class="val">1K+/day</div><div class="label">Lead Capacity</div></div>
+              <div class="metric"><div class="val">1K+/run</div><div class="label">Leads per 10 min</div></div>
             </div>
           </div>
         </div>
@@ -708,7 +791,7 @@
               <span class="demand-tag">🔥 HIGH DEMAND</span>
             </div>
             <h3>AI Voice-Calling Agent (Healthcare)</h3>
-            <p>Voice-based intake and appointment booking for dental and dermatology clinics. Handles 80% of inbound calls autonomously with Hindi-English bilingual conversation — books, reschedules, and cancels appointments seamlessly.</p>
+            <p>Voice-based intake and appointment booking for dental and dermatology clinics — in production at Meru Dermatology and a dental clinic client. Handles 80% of inbound calls autonomously with Hindi-English bilingual conversation — books, reschedules, and cancels appointments seamlessly.</p>
             <ul class="highlights">
               <li>ElevenLabs + Google Gemini for natural voice conversation</li>
               <li>Google Calendar integration for live availability checks</li>
@@ -739,13 +822,14 @@
               <li>Auto-reassignment on agent inactivity with timeout logic</li>
               <li>Anthropic Claude-powered chat assistance for agents</li>
               <li>WhatsApp (WATI) + Discord multi-channel notifications</li>
+              <li>500+ leads/week with sub-30s lead-to-agent assignment — zero manual handoff</li>
             </ul>
             <div class="tech"><span>Tawk.to</span><span>Claude</span><span>WATI</span><span>Discord</span><span>Supabase</span><span>n8n</span></div>
           </div>
           <div class="project-featured-right">
             <div class="metric-grid">
-              <div class="metric"><div class="val">85</div><div class="label">n8n Nodes</div></div>
-              <div class="metric"><div class="val">Live</div><div class="label">Production</div></div>
+              <div class="metric"><div class="val">500+</div><div class="label">Leads/Week</div></div>
+              <div class="metric"><div class="val">&lt;30s</div><div class="label">Assignment</div></div>
             </div>
           </div>
         </div>
@@ -804,6 +888,96 @@
 
       <div class="view-all-projects reveal">
         <a href="projects.html" class="btn btn-primary">View All 30+ Projects →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="section-inner">
+      <div class="section-label reveal">Certifications</div>
+      <h2 class="section-title reveal reveal-delay-1">Continuous Learning</h2>
+      <p class="section-desc reveal reveal-delay-2">
+        Verified coursework across AI, LLM engineering, prompt engineering, and productivity tooling.
+      </p>
+      <div class="cert-grid">
+        <div class="cert-item reveal reveal-delay-1">
+          <span class="cert-icon">🎓</span>
+          <div>
+            <div class="cert-name">Claude 101</div>
+            <div class="cert-meta">Anthropic · Jul 2026</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-2">
+          <span class="cert-icon">🤖</span>
+          <div>
+            <div class="cert-name">AI Fluency: Framework & Foundations</div>
+            <div class="cert-meta">Anthropic · Jul 2026</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-3">
+          <span class="cert-icon">🧠</span>
+          <div>
+            <div class="cert-name">Introduction to Prompt Engineering for Generative AI</div>
+            <div class="cert-meta">LinkedIn · May 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-4">
+          <span class="cert-icon">💬</span>
+          <div>
+            <div class="cert-name">Prompt Engineering with ChatGPT</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-1">
+          <span class="cert-icon">🔍</span>
+          <div>
+            <div class="cert-name">Generative AI: The Evolution of Thoughtful Online Search</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-2">
+          <span class="cert-icon">✨</span>
+          <div>
+            <div class="cert-name">What Is Generative AI</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-3">
+          <span class="cert-icon">⚖️</span>
+          <div>
+            <div class="cert-name">Ethics in the Age of Generative AI</div>
+            <div class="cert-meta">LinkedIn · NASBA · PMI · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-4">
+          <span class="cert-icon">🤖</span>
+          <div>
+            <div class="cert-name">Introduction to Artificial Intelligence</div>
+            <div class="cert-meta">LinkedIn Learning · NASBA · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-1">
+          <span class="cert-icon">📊</span>
+          <div>
+            <div class="cert-name">Data Visualization Best Practices</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-2">
+          <span class="cert-icon">💼</span>
+          <div>
+            <div class="cert-name">Learning Microsoft 365 Copilot & Business Chat</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
+        <div class="cert-item reveal reveal-delay-3">
+          <span class="cert-icon">⚡</span>
+          <div>
+            <div class="cert-name">Streamlining Your Work with Microsoft Copilot</div>
+            <div class="cert-meta">LinkedIn · Apr 2025</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
